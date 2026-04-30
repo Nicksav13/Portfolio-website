@@ -7,18 +7,28 @@ import SelectedWork from "@/components/SelectedWork";
 import Testimonials from "@/components/Testimonials";
 import Footer from "@/components/Footer";
 import GsapAnimations from "@/components/GsapAnimations";
+import { getSiteConfig, getServices, getProjects, getTestimonials } from "@/sanity/queries";
 
-export default function Home() {
+export const revalidate = 60;
+
+export default async function Home() {
+  const [config, services, projects, testimonials] = await Promise.all([
+    getSiteConfig(),
+    getServices(),
+    getProjects(),
+    getTestimonials(),
+  ]);
+
   return (
     <main>
-      <Hero />
-      <AboutSection />
-      <AboutBio />
-      <PhotoBreak />
-      <ServicesSection />
-      <SelectedWork />
-      <Testimonials />
-      <Footer />
+      <Hero config={config} />
+      <AboutSection config={config} />
+      <AboutBio config={config} />
+      <PhotoBreak config={config} />
+      <ServicesSection services={services} />
+      <SelectedWork projects={projects} />
+      <Testimonials testimonials={testimonials} />
+      <Footer config={config} />
       <GsapAnimations />
     </main>
   );

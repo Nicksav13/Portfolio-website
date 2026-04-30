@@ -1,4 +1,5 @@
 import { ReactNode } from "react";
+import type { SiteConfig } from "@/sanity/types";
 
 function Heading({ children }: { children: ReactNode }) {
   return (
@@ -22,29 +23,32 @@ function MonoLabel({ children }: { children: ReactNode }) {
   );
 }
 
-export default function AboutSection() {
+export default function AboutSection({ config }: { config?: SiteConfig }) {
+  const yearsLabel      = config?.aboutYearsLabel      ?? "8+ years in industry";
+  const line1           = config?.aboutLine1           ?? "A creative director   /";
+  const line2           = config?.aboutLine2           ?? "Photographer";
+  const line3           = config?.aboutLine3           ?? "Born & raised";
+  const line4           = config?.aboutLine4           ?? "on the south side";
+  const line5           = config?.aboutLine5           ?? "of chicago.";
+  const freelancerLabel = config?.aboutFreelancerLabel ?? "[ creative freelancer ]";
+
   return (
     <section className="w-full bg-white px-8 py-12 md:py-[120px]">
 
-      {/* ── HEADER: label + rule ── */}
+      {/* Header */}
       <div className="flex flex-col gap-3 items-end mb-6" data-gsap="fade-up">
-        <MonoLabel>[ 8+ years in industry ]</MonoLabel>
+        <MonoLabel>[ {yearsLabel} ]</MonoLabel>
         <div className="w-full h-px bg-[#1f1f1f]" data-gsap="rule" />
       </div>
 
-      {/* ── TEXT BLOCK ── */}
+      {/* Text block */}
       <div className="flex flex-col gap-2">
-
-        {/* Mobile: 001 sits above the first line, centered.
-            Desktop: hidden — 001 sits inline beside the heading. */}
         <div className="flex justify-center md:hidden mb-1">
           <MonoLabel>001</MonoLabel>
         </div>
 
-        {/* Line 1 — A CREATIVE DIRECTOR   / */}
         <div className="flex gap-3 items-start justify-center md:justify-start" data-gsap="line">
-          <Heading>A creative director&nbsp;&nbsp;&nbsp;/</Heading>
-          {/* Desktop 001 label */}
+          <Heading>{line1}</Heading>
           <span
             className="hidden md:block text-[#1f1f1f] text-[14px] leading-[1.1] shrink-0 pt-1"
             style={{ fontFamily: "var(--font-mono)" }}
@@ -53,44 +57,36 @@ export default function AboutSection() {
           </span>
         </div>
 
-        {/* Line 2 — PHOTOGRAPHER (centred padding on desktop) */}
         <div className="text-center md:text-left md:px-[15.5%]" data-gsap="line">
-          <Heading>Photographer</Heading>
+          <Heading>{line2}</Heading>
         </div>
 
-        {/* Line 3 — BORN & RAISED (pushed right on desktop) */}
         <div className="text-center md:text-left md:pl-[44.3%]" data-gsap="line">
           <Heading>
-            Born{" "}
-            <span
-              className="italic"
-              style={{ fontFamily: "var(--font-playfair)" }}
-            >
-              &amp;
-            </span>
-            {" "}raised
+            {line3.includes("&") ? (
+              <>
+                Born{" "}
+                <span className="italic" style={{ fontFamily: "var(--font-playfair)" }}>&amp;</span>
+                {" "}raised
+              </>
+            ) : line3}
           </Heading>
         </div>
 
-        {/* Line 4 — ON THE SOUTH SIDE (back to left edge) */}
         <div className="text-center md:text-left" data-gsap="line">
-          <Heading>on the south side</Heading>
+          <Heading>{line4}</Heading>
         </div>
 
-        {/* Line 5 — OF CHICAGO. + [ creative freelancer ] */}
         <div className="md:pl-[44%]" data-gsap="line">
-          {/* Mobile: stacked, centered */}
           <div className="flex flex-col items-center gap-3 md:hidden">
-            <Heading>of chicago.</Heading>
-            <MonoLabel>[ creative freelancer ]</MonoLabel>
+            <Heading>{line5}</Heading>
+            <MonoLabel>{freelancerLabel}</MonoLabel>
           </div>
-          {/* Desktop: inline beside heading */}
           <div className="hidden md:flex items-baseline gap-4">
-            <Heading>of chicago.</Heading>
-            <MonoLabel>[ creative freelancer ]</MonoLabel>
+            <Heading>{line5}</Heading>
+            <MonoLabel>{freelancerLabel}</MonoLabel>
           </div>
         </div>
-
       </div>
     </section>
   );
