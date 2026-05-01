@@ -1,3 +1,5 @@
+import "./globals.css";
+import type { Metadata } from "next";
 import Hero from "@/components/Hero";
 import AboutSection from "@/components/AboutSection";
 import AboutBio from "@/components/AboutBio";
@@ -8,6 +10,11 @@ import Testimonials from "@/components/Testimonials";
 import Footer from "@/components/Footer";
 import GsapAnimations from "@/components/GsapAnimations";
 import { getSiteConfig, getServices, getProjects, getTestimonials } from "@/sanity/queries";
+
+export const metadata: Metadata = {
+  title: "H.Studio",
+  description: "Full-service creative studio",
+};
 
 export const revalidate = 60;
 

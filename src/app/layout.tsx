@@ -1,11 +1,3 @@
-import type { Metadata } from "next";
-import "./globals.css";
-
-export const metadata: Metadata = {
-  title: "H.Studio",
-  description: "Full-service creative studio",
-};
-
 export default function RootLayout({
   children,
 }: {
